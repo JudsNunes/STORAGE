@@ -13,12 +13,10 @@ public class UserService {
 
     private  UserRepository userRepository;
 
-   //injeção de dependência via constructor.
     public UserService(UserRepository userRepository) {
 
         this.userRepository = userRepository;
     }
-
 
     public List<User> create(User user){
         userRepository.save(user);

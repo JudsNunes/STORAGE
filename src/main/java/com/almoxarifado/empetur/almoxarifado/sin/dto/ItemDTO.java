@@ -1,21 +1,15 @@
-package com.almoxarifado.empetur.almoxarifado.sin.entity;
+package com.almoxarifado.empetur.almoxarifado.sin.dto;
 
-
-import jakarta.persistence.*;
+import com.almoxarifado.empetur.almoxarifado.sin.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "Item")
 @Getter
 @Setter
-@AllArgsConstructor
-public class Item {
+public class ItemDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String code;
 
@@ -25,6 +19,24 @@ public class Item {
 
     private int quantidade;
 
+    public ItemDTO(){
+
+    }
+
+
+
+
+    public ItemDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public ItemDTO(long id, String code, String name, String description) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.description = description;
+    }
 
     public long getId() {
         return id;
@@ -58,21 +70,7 @@ public class Item {
         this.description = description;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public Item() {
-    }
-
-    public Item(Long id, String code, String name, String description) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Item(Long id, String code, String name, String description, int quantidade) {
+    public ItemDTO(long id, String code, String name, String description, int quantidade) {
         this.id = id;
         this.code = code;
         this.name = name;
