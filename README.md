@@ -11,7 +11,9 @@ API para gerenciamento de itens e usuários em um sistema de almoxarifado, desen
 - Lombok
 - H2 Database (em desenvolvimento)
 - Maven
-
+## Utilizando a API 
+Cria um novo item	{"code":"IT001","name":"Martelo","description":"...","quantidade":10}
+Atualiza um item existente	{"id":1,"code":"IT001","name":"Martelo Atualizado",...}
 ## 📊 Diagrama UML da Arquitetura
 
 ```mermaid
