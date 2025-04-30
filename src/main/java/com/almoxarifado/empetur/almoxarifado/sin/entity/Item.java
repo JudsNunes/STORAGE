@@ -1,10 +1,12 @@
 package com.almoxarifado.empetur.almoxarifado.sin.entity;
 
 
+import com.almoxarifado.empetur.almoxarifado.sin.dto.ItemDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(name = "Item")
@@ -25,12 +27,26 @@ public class Item {
 
     private int quantidade;
 
+    public Item() {
+    }
 
-    public long getId() {
+    public Item(ItemDTO itemDTO){
+        BeanUtils.copyProperties(itemDTO,this);
+    }
+
+    public Item(String code, String name, String description, int quantidade) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.quantidade = quantidade;
+    }
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,21 +78,7 @@ public class Item {
         return quantidade;
     }
 
-    public Item() {
-    }
-
-    public Item(Long id, String code, String name, String description) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Item(Long id, String code, String name, String description, int quantidade) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.description = description;
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 }

@@ -40,4 +40,16 @@ public enum TipoMovimentacao {
         return this == SAIDA || this == TRANSFERÊNCIA;
     }
 
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public String getDetalhe() {
+        return detalhe;
+    }
 }
