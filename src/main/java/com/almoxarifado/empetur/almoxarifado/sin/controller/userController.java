@@ -1,10 +1,14 @@
 package com.almoxarifado.empetur.almoxarifado.sin.controller;
 
 
+import com.almoxarifado.empetur.almoxarifado.sin.dto.ItemDTO;
+import com.almoxarifado.empetur.almoxarifado.sin.dto.UserDTO;
 import com.almoxarifado.empetur.almoxarifado.sin.entity.User;
 import com.almoxarifado.empetur.almoxarifado.sin.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,26 +21,31 @@ public class userController {
         this.userService = userService;
     }
 
-    @PostMapping
-    List<User> create(@RequestBody User user){
-        return userService.create(user);
-    }
-
 
     @GetMapping
-    public List<User> list(){
+    public List<UserDTO> list() {
         return list();
     }
 
-    @PutMapping
-    public List<User> update(@RequestBody User user){
-        return userService.create(user);
+    @PostMapping
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
+        UserDTO createdItem = userService.create(userDTO);
+        return ResponseEntity
+                .created(URI.create("/api/itens/" + createdItem.getId()))
+                .body(createdItem);
     }
 
-    @DeleteMapping("{id}")
-    public List<User> delete(@PathVariable("id") Long id){
-        return userService.delete(id);
+    @PutMapping
+    public UserDTO update(@RequestBody UserDTO userDTO){
+        return userService.update(userDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build(); // HTTP 204
+    }
+
 
 
 

@@ -14,15 +14,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ItemService {
 
-    @Autowired
+
     private final ItemRepository itemRepository;
 
-    @Autowired
     private final ItemMapper itemMapper;
 
+    public ItemService(ItemRepository itemRepository, ItemMapper itemMapper) {
+        this.itemRepository = itemRepository;
+        this.itemMapper = itemMapper;
+    }
 
     public ItemDTO getProductDto(){
         Item item = this.itemRepository.findById(1L).get();
@@ -47,7 +49,6 @@ public class ItemService {
                 .stream()
                 .map(itemMapper::itemToDTO)
                 .collect(Collectors.toList());
-
     }
 
 

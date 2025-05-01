@@ -32,17 +32,17 @@ import java.util.List;
                     .created(URI.create("/api/itens/" + createdItem.getId()))
                     .body(createdItem);
         }
+
         @PutMapping
         public ItemDTO update(@RequestBody ItemDTO itemDTO){
             return itemService.update(itemDTO);
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<ItemDTO> delete(@PathVariable("id") Long id){
-            ItemDTO deleteItem = itemService.delete(id);
-            return ResponseEntity.ok(deleteItem);
+        public ResponseEntity<Void> delete(@PathVariable Long id) {
+            itemService.delete(id);
+            return ResponseEntity.noContent().build(); // HTTP 204
         }
-
 
 
     }

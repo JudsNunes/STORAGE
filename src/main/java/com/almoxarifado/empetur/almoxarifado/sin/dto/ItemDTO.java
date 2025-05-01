@@ -1,8 +1,7 @@
 package com.almoxarifado.empetur.almoxarifado.sin.dto;
 
+
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
-import com.almoxarifado.empetur.almoxarifado.sin.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +13,14 @@ import lombok.Setter;
 public class ItemDTO {
 
     private Long id;
-    private String code;
-    private String name;
-    private String description;
+    private String codigo;
+    private String nome;
+    private String descricao;
     private Double quantidade;
-
-
+    private String categoria;
+    private String unidMedida;
+    private Double unidPreco;
+    private String fornecedor;
+    private String localizacao;
+    private Double estoqueMinimo;
 }
