@@ -1,9 +1,6 @@
 package com.almoxarifado.empetur.almoxarifado.sin.controller;
 
 import com.almoxarifado.empetur.almoxarifado.sin.dto.ItemDTO;
-import com.almoxarifado.empetur.almoxarifado.sin.entity.Item;
-import com.almoxarifado.empetur.almoxarifado.sin.service.ItemService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
