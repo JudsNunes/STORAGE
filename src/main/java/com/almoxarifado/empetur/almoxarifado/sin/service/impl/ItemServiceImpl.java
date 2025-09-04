@@ -7,6 +7,8 @@ import com.almoxarifado.empetur.almoxarifado.sin.repository.ItemRepository;
 import com.almoxarifado.empetur.almoxarifado.sin.service.ItemService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public class ItemServiceImpl implements ItemService {
 
     private static final String REGISTRO_NAO_ENCONTRADO = "Registro não encontrado";
@@ -22,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     @Override
     public Item findAll(Long id){
-        if(id==null ){
+        if(id==null){
             throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
         }
         return itemRepository.findAllById(id);
@@ -41,10 +43,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Item save(Item item){
-        if(item.getId()!= null && !itemRepository.findById(item.getId()).isPresent()){
+        if(item.getId()!= null && itemRepository.findById(item.getId()).isPresent()){
             throw new BusinessUncheckedException(REGISTRO_JA_EXISTE);
         }
 
@@ -62,13 +64,13 @@ public class ItemServiceImpl implements ItemService {
 
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Void delete(Long id){
-        if(id==null){
-            throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
+        if(id==null || itemRepository.existsById(id)){
+            throw new BusinessUncheckedException(GLOBAL_NOT_FOUND);
         }
-        itemRepository.delete(id);
+        itemRepository.deleteById(id);
     }
 
 

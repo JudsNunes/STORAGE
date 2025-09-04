@@ -1,7 +1,9 @@
 package com.almoxarifado.empetur.almoxarifado.sin.service;
 
 import com.almoxarifado.empetur.almoxarifado.sin.entity.Item;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface ItemService {
 
     Item findAll(Long id);

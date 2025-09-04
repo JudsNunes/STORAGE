@@ -1,0 +1,58 @@
+swagger: '2.0'
+info:
+  description: >
+    API para gestão de Itens de um Almoxarifado com CRUD completo. Ainda em construção, mas funcional.
+    Principais guias para definição da API:
+    Tabela de referência: ITEM
+  version: 1.0.0
+  title: Item API
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /items:
+    get:
+      summary: Lista todos os itens
+      operationId: getAllItems
+      responses:
+        '200':
+          description: Lista de itens
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+    post:
+      summary: Cria um novo item
+      operationId: createItem
+      parameters:
+        - in: body
+          name: item
+          required: true
+          schema:
+            $ref: '#/definitions/Item'
+      responses:
+        '201':
+          description: Item criado
+          schema:
+            $ref: '#/definitions/Item'
+
+  /items/{id}:
+    get:
+      summary: Busca item por ID
+      operationId: getItemById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Item encontrado
+          schema:
+            $ref: '#/definitions/Item'
+    put:
+      summary: Atual
