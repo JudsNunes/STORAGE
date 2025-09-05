@@ -6,13 +6,15 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ItemService {
 
-    Item findAll(Long id);
+
 
     Item findById(Long id);
 
     Item save(Item item);
 
     Void delete(Long id);
+
+    Item update(Item item);
 
     Item findByNameOrDescription(String name, String description);
 

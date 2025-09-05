@@ -6,6 +6,7 @@ import com.almoxarifado.empetur.almoxarifado.sin.exception.BusinessUncheckedExce
 import com.almoxarifado.empetur.almoxarifado.sin.repository.ItemRepository;
 import com.almoxarifado.empetur.almoxarifado.sin.service.ItemService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
@@ -23,11 +24,18 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
+    public Item findByNameOrDescription(String name, String description){
+       if(!StringUtils.hasText(name)){
+           return throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
+       }
+       if()
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Item findAll(Long id){
-        if(id==null){
-            throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
-        }
-        return itemRepository.findAllById(id);
+        return id == null ? itemRepository.findAll(id) : itemRepository.findById(id).orElseThrow(() -> new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO));
+
 
     }
 
@@ -35,11 +43,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     @Override
     public Item findById(Long id){
-        if(id==null){
-            throw  new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
-        }
-
-        return itemRepository.findById(id);
+        return id == null ? itemRepository.findAll(id) : itemRepository.findById(id).orElseThrow(() -> new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO));
     }
 
 
@@ -53,15 +57,13 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.save(item);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
-    public Item findByNameOrDescription(String name, String description){
-        if(name == null){
-            throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
+    public Item update(Item item){
+        if(item.getId() == null || !itemRepository.existsById(item.getId())){
+            return throw new BusinessUncheckedException(REGISTRO_JA_EXISTE);
         }
-
-        return itemRepository.findByNameOrDescription(name,description);
-
+        return itemRepository.save(item);
     }
 
     @Transactional
