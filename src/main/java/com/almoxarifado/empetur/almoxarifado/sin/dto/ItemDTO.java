@@ -23,4 +23,5 @@ public class ItemDTO {
     private String fornecedor;
     private String localizacao;
     private Double estoqueMinimo;
+
 }

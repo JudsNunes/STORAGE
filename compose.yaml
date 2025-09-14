@@ -1,10 +1,20 @@
 services:
   mysql:
-    image: 'mysql:latest'
+    image: mysql:8.0
+    restart: always
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: storage_db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: dbadmin
     ports:
-      - '3306'
+      - "3306:3306"
+    volumes:
+      - storage-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+volumes:
+  storage-db:
