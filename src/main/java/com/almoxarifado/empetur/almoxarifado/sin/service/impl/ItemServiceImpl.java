@@ -1,14 +1,12 @@
 package com.almoxarifado.empetur.almoxarifado.sin.service.impl;
 
-import com.almoxarifado.empetur.almoxarifado.sin.dto.ItemDTO;
 import com.almoxarifado.empetur.almoxarifado.sin.entity.Item;
 import com.almoxarifado.empetur.almoxarifado.sin.exception.BusinessUncheckedException;
 import com.almoxarifado.empetur.almoxarifado.sin.repository.ItemRepository;
 import com.almoxarifado.empetur.almoxarifado.sin.service.ItemService;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import java.util.Optional;
+import java.util.List;
 
 public class ItemServiceImpl implements ItemService {
 
@@ -24,26 +22,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public Item findByNameOrDescription(String name, String description){
-       if(!StringUtils.hasText(name)){
-           return throw new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO);
-       }
-       if()
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Item findAll(Long id){
-        return id == null ? itemRepository.findAll(id) : itemRepository.findById(id).orElseThrow(() -> new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO));
-
+    public List<Item> findAll(String name){
+        return name == null ? itemRepository.findAll() : itemRepository.findByName(name);
 
     }
-
 
     @Transactional(readOnly = true)
     @Override
     public Item findById(Long id){
-        return id == null ? itemRepository.findAll(id) : itemRepository.findById(id).orElseThrow(() -> new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO));
+        return id == null ? itemRepository.findAll() : itemRepository.findById(id).orElseThrow(() -> new BusinessUncheckedException(REGISTRO_NAO_ENCONTRADO));
     }
 
 
@@ -68,11 +55,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public Void delete(Long id){
+    public void delete(Long id){
         if(id==null || itemRepository.existsById(id)){
             throw new BusinessUncheckedException(GLOBAL_NOT_FOUND);
         }
-        itemRepository.deleteById(id);
+         itemRepository.deleteById(id);
     }
 
 
