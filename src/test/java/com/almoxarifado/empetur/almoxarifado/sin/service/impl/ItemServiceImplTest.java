@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -41,33 +43,24 @@ class ItemServiceImplTest {
 
         var producers = service.findAll(null);
 
-        Assertions.assertThat(producers).isNotNull().hasSize(1);
+        Assertions.assertThat(producers).isNotNull().hasSize(1).contains(item);
 
     }
 
     @Test
     void findById_returnItem_WhenIdExists() {
 
-        //definindo o id que sera usado na consulta
-        Long id = 1L;
-        //inicializando o estado do objeto
-        item.setId(id);
+        var producer = Collections.singletonList(item).get(0);
 
-        //simulando o comportamento do Repository
         when(repository.findById(id)).thenReturn(Optional.of(item));
 
-        //executando o metodo do service
         var itemFound = service.findById(id);
 
-        //verificando se o itemFound nao e nulo.
-        Assertions.assertThat(itemFound).isNotNull();
-        //verificando se o id do itemFound e igual ao id usado na consulta
         Assertions.assertThat(itemFound.get()).isEqualTo(id);
     }
 
     @Test
     void findById_returnNull_WhenIdNotExists() {
-
         Long id = 32L;
         item.setId(id);
 
@@ -79,16 +72,23 @@ class ItemServiceImplTest {
 
     }
 
-
     @Test
-    void save() {
+    void save_Item() {
+
+
+
+
+
+
     }
 
     @Test
     void update() {
+
     }
 
     @Test
     void delete() {
+
     }
 }
